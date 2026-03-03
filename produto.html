@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="product-title">Detalhes do Produto - Único Baby</title>
+    <link rel="stylesheet" href="simple.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1>Único Baby</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="produtos.html">Produtos</a></li>
+                <li><a href="vendidos.html">Vendidos</a></li>
+                <li><a href="#">Entrar</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="product-detail">
+            <div class="container">
+                <div class="product-container">
+                    <div class="gallery">
+                        <div class="main-image">
+                            <img id="main-product-image" src="" alt="">
+                        </div>
+                        <div class="thumbnails">
+                            <!-- Thumbnails will be loaded via JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="product-info">
+                        <h1 id="product-name"></h1>
+                        
+                        <div class="price-section">
+                            <span id="original-price" class="original-price"></span>
+                            <span id="discounted-price" class="discounted-price"></span>
+                            <span id="discount-percentage" class="discount-badge"></span>
+                        </div>
+                        
+                        <div class="availability">
+                            <span class="badge">1 unidade disponível</span>
+                        </div>
+                        
+                        <div class="defect-info">
+                            <h3>Defeito estético:</h3>
+                            <p id="defect-description"></p>
+                        </div>
+                        
+                        <div class="what-you-need-to-know">
+                            <h3>O que você precisa saber</h3>
+                            <ul>
+                                <li>Produto 100% funcional</li>
+                                <li>Defeito apenas estético</li>
+                                <li>Estoque único</li>
+                                <li>Garantia de 90 dias</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="urgency-indicator">
+                            <p>Produto exclusivo – pode não voltar ao estoque</p>
+                        </div>
+                        
+                        <button id="buy-button" class="btn btn-primary">Comprar esta peça única</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Único Baby. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+    <script>
+        // Load product details
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProductDetails();
+        });
+        
+        function loadProductDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+            
+            if (!productId) {
+                document.querySelector('.product-container').innerHTML = '<p>Produto não encontrado.</p>';
+                return;
+            }
+            
+            const product = products.find(p => p.id == productId);
+            
+            if (!product) {
+                document.querySelector('.product-container').innerHTML = '<p>Produto não encontrado.</p>';
+                return;
+            }
+            
+            // Set product information
+            document.getElementById('product-title').textContent = `${product.name} - Único Baby`;
+            document.getElementById('product-name').textContent = product.name;
+            document.getElementById('original-price').textContent = `R$ ${product.originalPrice.toFixed(2)}`;
+            document.getElementById('discounted-price').textContent = `R$ ${product.discountedPrice.toFixed(2)}`;
+            document.getElementById('defect-description').textContent = product.defectDescription;
+            
+            // Calculate discount percentage
+            const discountPercentage = Math.round(((product.originalPrice - product.discountedPrice) / product.originalPrice) * 100);
+            document.getElementById('discount-percentage').textContent = `-${discountPercentage}%`;
+            
+            // Set main image
+            document.getElementById('main-product-image').src = product.image;
+            document.getElementById('main-product-image').alt = product.name;
+            
+            // Handle buy button click
+            document.getElementById('buy-button').addEventListener('click', function() {
+                alert(`Produto adicionado ao carrinho: ${product.name}`);
+                // In a real implementation, this would add the item to the cart
+            });
+        }
+    </script>
+</body>
+</html>

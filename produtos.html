@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos - Único Baby</title>
+    <link rel="stylesheet" href="simple.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1>Único Baby</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="produtos.html">Produtos</a></li>
+                <li><a href="vendidos.html">Vendidos</a></li>
+                <li><a href="#">Entrar</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="product-listing">
+            <div class="container">
+                <h1>Produtos Disponíveis</h1>
+                
+                <div class="filters">
+                    <select id="category-filter">
+                        <option value="">Todas as categorias</option>
+                        <option value="banho">Banho</option>
+                        <option value="passeio">Passeio</option>
+                        <option value="sono">Sono</option>
+                        <option value="alimentacao">Alimentação</option>
+                    </select>
+                </div>
+                
+                <div class="products-grid" id="all-products">
+                    <!-- Products will be loaded here via JavaScript -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Único Baby. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+    <script>
+        // Load all products on products page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAllProducts();
+            
+            // Add event listener for category filter
+            document.getElementById('category-filter').addEventListener('change', function() {
+                loadAllProducts(this.value);
+            });
+        });
+        
+        function loadAllProducts(category = '') {
+            const container = document.getElementById('all-products');
+            let filteredProducts = products.filter(p => !p.sold);
+            
+            if (category) {
+                filteredProducts = filteredProducts.filter(p => p.category === category);
+            }
+            
+            container.innerHTML = '';
+            
+            if (filteredProducts.length === 0) {
+                container.innerHTML = '<p class="no-products">Nenhum produto encontrado nesta categoria.</p>';
+                return;
+            }
+            
+            filteredProducts.forEach(product => {
+                const productCard = createProductCard(product);
+                container.appendChild(productCard);
+            });
+        }
+    </script>
+</body>
+</html>

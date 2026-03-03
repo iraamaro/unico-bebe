@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Itens Vendidos - Único Baby</title>
+    <link rel="stylesheet" href="simple.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1>Único Baby</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="produtos.html">Produtos</a></li>
+                <li><a href="vendidos.html">Vendidos</a></li>
+                <li><a href="#">Entrar</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="sold-products">
+            <div class="container">
+                <h1>Itens Já Vendidos</h1>
+                <p>Confira os produtos que já encontraram seus novos donos.</p>
+                
+                <div class="products-grid" id="sold-products">
+                    <!-- Sold products will be loaded here via JavaScript -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Único Baby. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+    <script>
+        // Load sold products
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSoldProducts();
+        });
+        
+        function loadSoldProducts() {
+            const container = document.getElementById('sold-products');
+            const soldProducts = products.filter(p => p.sold);
+            
+            container.innerHTML = '';
+            
+            if (soldProducts.length === 0) {
+                container.innerHTML = '<p class="no-products">Nenhum produto vendido ainda.</p>';
+                return;
+            }
+            
+            soldProducts.forEach(product => {
+                const productCard = createProductCard(product, true); // Mark as sold
+                container.appendChild(productCard);
+            });
+        }
+    </script>
+</body>
+</html>
