@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Único Baby - Produtos de puericultura com pequenos defeitos</title>
+    <link rel="stylesheet" href="simple.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1>Único Baby</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="produtos.html">Produtos</a></li>
+                <li><a href="vendidos.html">Vendidos</a></li>
+                <li><a href="#">Entrar</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <h1>Produtos de puericultura únicos. Pequenos defeitos. Grandes descontos.</h1>
+                <p>Produtos com pequenos defeitos estéticos, totalmente funcionais e seguros, com estoque único e descontos reais.</p>
+                <a href="produtos.html" class="btn btn-primary">Ver itens disponíveis</a>
+            </div>
+        </section>
+
+        <!-- Como Funciona Section -->
+        <section class="como-funciona">
+            <div class="container">
+                <h2>Como funciona</h2>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>Encontramos produtos com pequenos defeitos</h3>
+                        <p>Buscamos produtos de puericultura com defeitos estéticos leves, fora da caixa ou de mostruário.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>Inspecionamos e garantimos funcionamento</h3>
+                        <p>Cada produto é cuidadosamente inspecionado para garantir total segurança e funcionalidade.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>Vendemos com desconto e estoque único</h3>
+                        <p>Oferecemos descontos reais em produtos únicos, contribuindo para redução de desperdício.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Products -->
+        <section class="featured-products">
+            <div class="container">
+                <h2>Itens Disponíveis</h2>
+                <div class="products-grid" id="home-products">
+                    <!-- Products will be loaded here via JavaScript -->
+                </div>
+                <div class="text-center">
+                    <a href="produtos.html" class="btn btn-secondary">Ver todos os produtos</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Único Baby. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+    <script>
+        // Load featured products on home page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadFeaturedProducts();
+        });
+        
+        function loadFeaturedProducts() {
+            const container = document.getElementById('home-products');
+            const featuredProducts = products.filter(p => p.featured && !p.sold);
+            
+            container.innerHTML = '';
+            
+            featuredProducts.slice(0, 4).forEach(product => {
+                const productCard = createProductCard(product);
+                container.appendChild(productCard);
+            });
+        }
+    </script>
+</body>
+</html>
